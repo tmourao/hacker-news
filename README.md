@@ -7,6 +7,7 @@ This is a simple coding test API for consuming data from https://github.com/Hack
 - Open the solution in Visual Studio 2019
 - Set News.API as default project
 - Ctrl + F5 to run the project on IIS Express
+- Test it with swagger
 
 # changes
 
@@ -17,6 +18,7 @@ This is a simple coding test API for consuming data from https://github.com/Hack
 - Add a HttpClient helper to execute external APIs requests
 - Have request URI details like API_Version in appsettings instead of hardcoded (e.g. /v0/)
 - Create a develop branch
+- Add unit testing project
 
 Note: Depending on context or complexity some of the above points may not be needed
 
