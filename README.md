@@ -15,6 +15,8 @@ Add logging (built-in or Serilog)
 Add authentication using an API_KEY
 Add output cache mechanism if the data we are reading don't have real time changes
 Add a HttpClient helper to execute external APIs requests
-Have request URI details like API_Version in appsettings instead of hardcoded (e.g. /v0/) - If it's needed
+Have request URI details like API_Version in appsettings instead of hardcoded (e.g. /v0/)
+
+Note: Depending on context or complexity some of the above points may not be needed
 
 
