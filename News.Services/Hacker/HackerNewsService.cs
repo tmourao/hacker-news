@@ -29,8 +29,6 @@ namespace News.Services.Hacker
 
         public async Task<IEnumerable<HackerStory>> GetBestStories(int size)
         {
-            var bestStories = new List<HackerStory>();
-
             var data = await _httpClient.GetAsync("/v0/beststories.json");
 
             // possible exception needs to be handled
@@ -40,18 +38,17 @@ namespace News.Services.Hacker
             var bestStoryIds = JsonConvert.DeserializeObject<IEnumerable<int>>(content);
 
             var detailTasks = bestStoryIds.Select(id => _httpClient.GetAsync($"/v0/item/{id}.json"));
-            var detailData = await Task.WhenAll(detailTasks);
+            var detailHttpResponses = await Task.WhenAll(detailTasks);
 
-            foreach(var response in detailData)
+            var detailContentTasks = detailHttpResponses.Select(httpResponse =>
             {
-                // possible exception needs to be handled
-                response.EnsureSuccessStatusCode();
+                httpResponse.EnsureSuccessStatusCode();
 
-                var storyDetail = await response.Content.ReadAsStringAsync();
-                var bestStory = JsonConvert.DeserializeObject<HackerStory>(storyDetail);
+                return httpResponse.Content.ReadAsStringAsync();
+            });
 
-                bestStories.Add(bestStory);
-            }
+            var detailContent = await Task.WhenAll(detailContentTasks);
+            var bestStories = detailContent.Select(c => JsonConvert.DeserializeObject<HackerStory>(c));
 
             return bestStories
                 .OrderByDescending(x => x.Score)

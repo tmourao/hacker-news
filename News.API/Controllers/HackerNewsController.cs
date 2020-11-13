@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using News.API.Dto;
 using News.Core.Extensions;
-using News.Core.Web.Models.Hacker;
 using News.Services.Hacker;
 using System;
 using System.Collections.Generic;
