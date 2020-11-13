@@ -11,7 +11,7 @@ This is a simple coding test API for consuming data from https://github.com/Hack
 
 # changes
 
-- Add exception handling + custom exception
+- Add exception handling + custom exception classes
 - Add logging (built-in or Serilog)
 - Add authentication using an API_KEY
 - Add output cache mechanism if the data we are reading don't have real time changes
