@@ -39,20 +39,19 @@ namespace News.Services.Hacker
 
             var detailTasks = bestStoryIds.Select(id => _httpClient.GetAsync($"/v0/item/{id}.json"));
             var detailHttpResponses = await Task.WhenAll(detailTasks);
-
             var detailContentTasks = detailHttpResponses.Select(httpResponse =>
             {
                 httpResponse.EnsureSuccessStatusCode();
 
                 return httpResponse.Content.ReadAsStringAsync();
             });
-
             var detailContent = await Task.WhenAll(detailContentTasks);
-            var bestStories = detailContent.Select(c => JsonConvert.DeserializeObject<HackerStory>(c));
 
-            return bestStories
+            var bestStories = detailContent.Select(c => JsonConvert.DeserializeObject<HackerStory>(c))
                 .OrderByDescending(x => x.Score)
                 .Take(size);
+
+            return bestStories;
         }
 
         #endregion
